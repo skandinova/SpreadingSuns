@@ -1,0 +1,1 @@
+This is the prefabs directory. Delete this text file after files have been added to this directory.
