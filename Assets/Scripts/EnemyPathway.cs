@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//Code follow on Youtube tutorial (https://www.youtube.com/watch?v=1aBjTa3xQzE&t=223s)
 public class EnemyPathway : MonoBehaviour {
 
     public Color rayColor = Color.white;
     public List<Transform> path_objs = new List<Transform>();
     Transform[] theArray;
+    public List<int> enemyStops = new List<int>();
 
     void OnDrawGizmos()
     {
