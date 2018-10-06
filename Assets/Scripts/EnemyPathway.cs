@@ -8,7 +8,7 @@ public class EnemyPathway : MonoBehaviour {
     public Color rayColor = Color.white;
     public List<Transform> path_objs = new List<Transform>();
     Transform[] theArray;
-    public List<int> enemyStops = new List<int>();
+    public List<float> enemyStops = new List<float>();
 
     void OnDrawGizmos()
     {

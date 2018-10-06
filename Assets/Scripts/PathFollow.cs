@@ -13,6 +13,7 @@ public class PathFollow : MonoBehaviour {
     private int currentPathwayID = 0;
     private bool forwardPatrolBool;
     private bool routeZeroBool;
+    private bool enemyStopBool;
 
     //Vector2 last_position;
     Vector2 current_position;
@@ -21,7 +22,8 @@ public class PathFollow : MonoBehaviour {
         forwardPatrolBool = true;
         //To avoid effect when start (Stuck on loop)
         routeZeroBool = false;
-	}
+        enemyStopBool = false;
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -56,9 +58,21 @@ public class PathFollow : MonoBehaviour {
         {
             Destroy(gameObject);
         }
-        if (EnemyPathwayScript.enemyStops[0] == 1)
+        //CurrentPathwayID change once reach destination so should pass bool instead to continue update
+        if (distance <= reachDistance && currentPathwayID == 0 && EnemyPathwayScript.enemyStops[currentPathwayID] > 0f)
         {
-            Debug.Log("Wait one second");
+            enemyStopBool = true;
+        }
+        if (enemyStopBool && EnemyPathwayScript.enemyStops[currentPathwayID] > 0f)
+        {
+            EnemyPathwayScript.enemyStops[0] = EnemyPathwayScript.enemyStops[0] - Time.deltaTime;
+            enemySpeed = 0;
+        }
+        else if (enemyStopBool && EnemyPathwayScript.enemyStops[currentPathwayID] <= 0f)
+        {
+            enemyStopBool = false;
+            Debug.Log(EnemyPathwayScript.enemyStops[0]);
+            enemySpeed = 5;
         }
     }
 }
