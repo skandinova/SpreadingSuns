@@ -1537,8 +1537,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5da8c418410146c4e8e7233947b413c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eventSystem: {fileID: 0}
-  selectedObject: {fileID: 0}
+  eventSystem: {fileID: 1736248761}
+  selectedObject: {fileID: 863705195}
 --- !u!1 &1650349088
 GameObject:
   m_ObjectHideFlags: 0
@@ -1990,8 +1990,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5da8c418410146c4e8e7233947b413c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eventSystem: {fileID: 0}
-  selectedObject: {fileID: 0}
+  eventSystem: {fileID: 1736248761}
+  selectedObject: {fileID: 1711838010}
 --- !u!1 &1785338999
 GameObject:
   m_ObjectHideFlags: 0
