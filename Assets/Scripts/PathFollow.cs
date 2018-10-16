@@ -6,10 +6,9 @@ using UnityEngine;
 public class PathFollow : MonoBehaviour {
 
     public EnemyPathway EnemyPathwayScript;
-    public PathNode PathNodeScript;
     public float enemySpeed;
     //Use as a trick to make patrol curve to follow in a curve pattern, con/it reduce requirement to reach on point
-    public int patrolCycle = 3;
+    public int patrolCycle = -1;
     private float reachDistance = 0f;
     private int currentPathwayID = 0;
     private bool forwardPatrolBool;
