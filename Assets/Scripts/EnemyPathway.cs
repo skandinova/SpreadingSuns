@@ -6,34 +6,53 @@ using UnityEngine;
 public class EnemyPathway : MonoBehaviour {
 
     public Color rayColor = Color.white;
-    public List<Transform> path_objs = new List<Transform>();
-    Transform[] theArray;
-    public List<float> enemyStops = new List<float>();
+    //public List<Transform> path_objs = new List<Transform>();
+    public List<PathNode> nodes = new List<PathNode>();
+    //public List<float> enemyStops = new List<float>();
+    PathNode[] theArray;
 
     void OnDrawGizmos()
     {
         Gizmos.color = rayColor;
-        theArray = GetComponentsInChildren<Transform>();
-        path_objs.Clear();
+        theArray = GetComponentsInChildren<PathNode>();
+        nodes.Clear();
 
-        foreach (Transform path_obj in theArray)
+        foreach (PathNode node in theArray)
         {
-            if (path_obj != this.transform)
+            if (node != this.transform)
             {
-                path_objs.Add(path_obj);
+                nodes.Add(node);
             }
 
-            for(int i = 0; i < path_objs.Count; i++)
+        }
+        for (int i = 0; i < nodes.Count; i++)
+        {
+            Vector2 position = nodes[i].transform.position;
+            if (i > 0)
             {
-                Vector2 position = path_objs[i].position;
-                if (i > 0)
-                {
-                    Vector2 previous = path_objs[i - 1].position;
-                    Gizmos.DrawLine(previous, position);
-                    Gizmos.DrawWireSphere(position, 0.3f);
-                }
+                Vector2 previous = nodes[i - 1].transform.position;
+                Gizmos.DrawLine(previous, position);
+                Gizmos.DrawWireSphere(position, 0.3f);
             }
         }
+        //foreach (Transform path_obj in theArray)
+        //{
+        //    if (path_obj != this.transform)
+        //    {
+        //        path_objs.Add(path_obj);
+        //    }
+
+        //    for(int i = 0; i < path_objs.Count; i++)
+        //    {
+        //        Vector2 position = path_objs[i].position;
+        //        if (i > 0)
+        //        {
+        //            Vector2 previous = path_objs[i - 1].position;
+        //            Gizmos.DrawLine(previous, position);
+        //            Gizmos.DrawWireSphere(position, 0.3f);
+        //        }
+        //    }
+        //}
     }
     // Use this for initialization
     void Start () {

@@ -8,27 +8,27 @@ public class PathFollow : MonoBehaviour {
     public EnemyPathway EnemyPathwayScript;
     public float enemySpeed;
     //Use as a trick to make patrol curve to follow in a curve pattern, con/it reduce requirement to reach on point
-    public float reachDistance = 1.0f;
-    public int patrolCycle = 3;
+    public int patrolCycle = -1;
+    private float reachDistance = 0f;
     private int currentPathwayID = 0;
     private bool forwardPatrolBool;
     private bool routeZeroBool;
-    private bool enemyStopBool;
+    private float waitSave;
+    private float speedSave;
 
     //Vector2 last_position;
     Vector2 current_position;
-	// Use this for initialization
+
 	void Start () {
+        speedSave = enemySpeed;
         forwardPatrolBool = true;
         //To avoid effect when start (Stuck on loop)
         routeZeroBool = false;
-        enemyStopBool = false;
     }
 	
-	// Update is called once per frame
 	void Update () {
-        float distance = Vector2.Distance(EnemyPathwayScript.path_objs[currentPathwayID].position, transform.position);
-        transform.position = Vector2.MoveTowards(transform.position, EnemyPathwayScript.path_objs[currentPathwayID].position, Time.deltaTime * enemySpeed);
+        float distance = Vector2.Distance(EnemyPathwayScript.nodes[currentPathwayID].transform.position, transform.position);
+        transform.position = Vector2.MoveTowards(transform.position, EnemyPathwayScript.nodes[currentPathwayID].transform.position, Time.deltaTime * enemySpeed);
 
         if(distance <= reachDistance && forwardPatrolBool)
         {
@@ -38,7 +38,7 @@ public class PathFollow : MonoBehaviour {
         {
             currentPathwayID--;
         }
-        if (currentPathwayID >= EnemyPathwayScript.path_objs.Count)
+        if (currentPathwayID >= EnemyPathwayScript.nodes.Count)
         {
             currentPathwayID--;
             forwardPatrolBool = false;
@@ -54,25 +54,31 @@ public class PathFollow : MonoBehaviour {
         {
             routeZeroBool = true;
         }
-        if (patrolCycle <= 0)
+        if (patrolCycle == 0)
         {
             Destroy(gameObject);
         }
-        //CurrentPathwayID change once reach destination so should pass bool instead to continue update
-        if (distance <= reachDistance && currentPathwayID == 0 && EnemyPathwayScript.enemyStops[currentPathwayID] > 0f)
+        else if (patrolCycle <= -1)
         {
-            enemyStopBool = true;
+            //Debug.Log("Never Destroy");
         }
-        if (enemyStopBool && EnemyPathwayScript.enemyStops[currentPathwayID] > 0f)
+    }
+
+    //Bad practice of using two detection collide, OnTigger and distance <= reachDistance. Reach distance must be 0f for no possible glitch. Could not find another solution
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.GetComponent<PathNode>().numStops == currentPathwayID && other.gameObject.GetComponent<PathNode>().waitTime > 0)
         {
-            EnemyPathwayScript.enemyStops[0] = EnemyPathwayScript.enemyStops[0] - Time.deltaTime;
-            enemySpeed = 0;
+            //must pass waitSave float to use startCoroutine
+            waitSave = other.gameObject.GetComponent<PathNode>().waitTime;
+            StartCoroutine(CoWaitAndDoThing());
         }
-        else if (enemyStopBool && EnemyPathwayScript.enemyStops[currentPathwayID] <= 0f)
-        {
-            enemyStopBool = false;
-            Debug.Log(EnemyPathwayScript.enemyStops[0]);
-            enemySpeed = 5;
-        }
+    }
+
+    IEnumerator CoWaitAndDoThing()
+    {
+        enemySpeed = 0f;
+        yield return new WaitForSeconds(waitSave);
+        enemySpeed = speedSave;
     }
 }
