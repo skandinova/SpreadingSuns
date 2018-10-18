@@ -9,8 +9,8 @@ public class BossBullets : MonoBehaviour {
     public float projectileSpeed;
     public float rotationSpeed;
     public float bulletPerSeconds;
-    public float rotationSave;
     public GameObject projectilePrefab;
+    private float rotationSave;
     private bool reverseBulletBool;
     private bool shotBool;
 
