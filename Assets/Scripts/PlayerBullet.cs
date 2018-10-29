@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour {
+public class PlayerBullet : MonoBehaviour {
 
     public float speed = 20f;
     public Rigidbody2D rb;
@@ -14,8 +14,9 @@ public class Bullet : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D hitInfo)
     {
-        
+        if (hitInfo.gameObject.CompareTag("Enemy"))
+        {
+            hitInfo.gameObject.GetComponent<EnemyHealth>().health--;
+        }
     }
-
-
 }

@@ -3,24 +3,29 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //Youtube tutorial (https://www.youtube.com/watch?v=P20DQj1l4jw&t=316s)
-public class BossBullets : MonoBehaviour {
+public class SpinBullets : MonoBehaviour {
     [Header("Projectile Settings")]
     public int numberOfProjectiles;
     public float projectileSpeed;
     public float rotationSpeed;
     public float bulletPerSeconds;
-    public GameObject projectilePrefab;
+    public float afterBombTime;
     public float rotationSave;
+    public GameObject projectilePrefab;
     public bool reverseBulletBool;
+    public bool afterBombBool;
 
     [Header("Private Variables")]
     private Vector2 startPoint;
     private bool shotBool;
+    private float afterBombSave;
     private const float radius = 1F;
 
     void Start () {
         shotBool = false;
         reverseBulletBool = false;
+        afterBombSave = afterBombTime;
+        afterBombBool = false;
 	}
 	
 	// Update is called once per frame
@@ -54,7 +59,6 @@ public class BossBullets : MonoBehaviour {
         {
             rotationSave -= rotationSpeed;
         }
-
         for (int i = 0; i <= _numberOfProjectile -1; i++)
         {
             float projectileDirXPosition = startPoint.x + Mathf.Sin(((angle + rotationSave) * Mathf.PI) / 180) * radius;
@@ -80,9 +84,18 @@ public class BossBullets : MonoBehaviour {
 
     IEnumerator CoWaitAndDoThing()
     {
-        yield return new WaitForSeconds(bulletPerSeconds);
-        startPoint = transform.position;
-        SpawnProjectile(numberOfProjectiles);
-        shotBool = false;
+        if (afterBombBool == false)
+        {
+            yield return new WaitForSeconds(bulletPerSeconds);
+            startPoint = transform.position;
+            SpawnProjectile(numberOfProjectiles);
+            shotBool = false;
+        }
+        else if (afterBombBool)
+        {
+            yield return new WaitForSeconds(afterBombSave);
+            afterBombBool = false;
+            shotBool = false;
+        }
     }
 }
