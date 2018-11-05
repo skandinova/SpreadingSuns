@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class player_movement : MonoBehaviour {
+    public float movement;
+    public float slow;
     private Rigidbody2D myRigidBody;
 
 	// Use this for initialization
@@ -13,8 +15,8 @@ public class player_movement : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        float horizontal = Input.GetAxis("Horizontal") * 5;
-        float vertical = Input.GetAxis("Vertical") * 5;
+        float horizontal = Input.GetAxis("Horizontal") * movement;
+        float vertical = Input.GetAxis("Vertical") * movement;
 
         HandleMovement(horizontal, vertical);
 	}

@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //Youtube tutorial (https://www.youtube.com/watch?v=P20DQj1l4jw&t=316s)
-public class SpinBullets : MonoBehaviour {
+public class SpinningShooterEnemy : EnemyBase
+{
     [Header("Projectile Settings")]
     public int numberOfProjectiles;
     public float projectileSpeed;
@@ -12,38 +13,33 @@ public class SpinBullets : MonoBehaviour {
     public float afterBombTime;
     public float rotationSave;
     public GameObject projectilePrefab;
-    public bool reverseBulletBool;
-    public bool afterBombBool;
+    public bool isReversed;
+    //public bool afterBombBool;
 
     [Header("Private Variables")]
     private Vector2 startPoint;
-    private bool shotBool;
+    private bool isShooting;
     private float afterBombSave;
     private const float radius = 1F;
 
     void Start () {
-        shotBool = false;
-        reverseBulletBool = false;
+        isShooting = false;
+        isReversed = false;
         afterBombSave = afterBombTime;
-        afterBombBool = false;
-	}
-	
-	// Update is called once per frame
-	void Update () {
-        if (shotBool == false)
-        {
-            shotBool = true;
-            StartCoroutine(CoWaitAndDoThing());
-        }
+    }
+    private void OnEnable()
+    {
+        StartCoroutine(CoShootCycle());
+    }
 
-        if (Input.GetKeyDown("space") && reverseBulletBool == false)
+    // Update is called once per frame
+    void Update ()
+    {
+        if(Input.GetKeyDown("space"))
         {
-            reverseBulletBool = true;
+            isReversed = !isReversed;
         }
-        else if (Input.GetKeyDown("space") && reverseBulletBool)
-        {
-            reverseBulletBool = false;
-        }
+        
     }
 
     private void SpawnProjectile(int _numberOfProjectile)
@@ -51,11 +47,11 @@ public class SpinBullets : MonoBehaviour {
         float angleStep = 360f / _numberOfProjectile;
         float angle = 0f;
         //Used to save rotation location and add into angle for rotation effect
-        if (reverseBulletBool == false)
+        if (isReversed == false)
         {
             rotationSave += rotationSpeed;
         }
-        else if (reverseBulletBool)
+        else if (isReversed)
         {
             rotationSave -= rotationSpeed;
         }
@@ -82,20 +78,29 @@ public class SpinBullets : MonoBehaviour {
         }
     }
 
-    IEnumerator CoWaitAndDoThing()
+    IEnumerator CoShootCycle()
     {
-        if (afterBombBool == false)
+        Debug.Log("Starting Shoot Cycle");
+        while(this.enabled)
         {
-            yield return new WaitForSeconds(bulletPerSeconds);
-            startPoint = transform.position;
-            SpawnProjectile(numberOfProjectiles);
-            shotBool = false;
+            if(canShoot)
+            {
+                startPoint = transform.position;
+                SpawnProjectile(numberOfProjectiles);
+                yield return new WaitForSeconds(bulletPerSeconds);
+            }
+            else
+            {
+                Debug.Log("Is Stunned...");
+                yield return null; // Dont do anything if it cant shoot.
+            }
+
         }
-        else if (afterBombBool)
-        {
-            yield return new WaitForSeconds(afterBombSave);
-            afterBombBool = false;
-            shotBool = false;
-        }
+    }
+
+    public override void Stun(float stunDuration)
+    {
+        base.Stun(stunDuration);
+        //Debug.Log("Stunned Spinning Shooter!");
     }
 }
