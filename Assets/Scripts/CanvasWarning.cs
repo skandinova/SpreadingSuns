@@ -15,11 +15,11 @@ public class CanvasWarning : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (BulletLaserScript.laserProgressBool)
+		if (BulletLaserScript.isLaserProgress)
         {
             //this.GetComponent<CanvasRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
         }
-        else if (BulletLaserScript.laserProgressBool == false)
+        else if (BulletLaserScript.isLaserProgress == false)
         {
             this.GetComponent<CanvasGroup>().alpha = 0;
         }
