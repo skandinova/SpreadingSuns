@@ -5,9 +5,8 @@ using UnityEngine;
 public class Bomb : MonoBehaviour
 {
     public int numberOfBombs;
-    public AudioClip bombClip;
-    private AudioSource audioSource;
     public float stunTime = 3f;
+    private AudioSource audioSource;
 
     // Use this for initialization
     void Start ()
@@ -27,7 +26,7 @@ public class Bomb : MonoBehaviour
     public void TriggerBomb()
     {
         numberOfBombs--;
-        Debug.Log("Triggered Bomb! bombCount= " + numberOfBombs);
+        //Debug.Log("Triggered Bomb! bombCount= " + numberOfBombs);
 
         DestroyAllEnemyBullets();
 
