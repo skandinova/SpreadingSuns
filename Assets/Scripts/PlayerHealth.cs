@@ -5,25 +5,26 @@ using UnityEngine;
 public class PlayerHealth : MonoBehaviour {
 
     public int health;
-    private AudioSource audioSource;
+    public AudioSource audioHit;
+    public AudioSource audioExplode;
 
-	// Use this for initialization
-	void Start () {
-        audioSource = GetComponent<AudioSource>();
+    // Use this for initialization
+    void Start () {
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		if (health <= 0)
         {
+            audioExplode.Play();
             Destroy(gameObject);
         }
 	}
 
     public void HealthDamage()
     {
-        audioSource.Stop();
-        audioSource.Play();
+        audioHit.Stop();
         health -= 1;
+        audioHit.Play();
     }
 }
