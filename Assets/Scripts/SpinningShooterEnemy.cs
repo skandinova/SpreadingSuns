@@ -24,7 +24,6 @@ public class SpinningShooterEnemy : EnemyBase
 
     void Start () {
         isShooting = false;
-        isReversed = false;
         afterBombSave = afterBombTime;
     }
     private void OnEnable()

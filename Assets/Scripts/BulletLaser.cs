@@ -60,7 +60,8 @@ public class BulletLaser : MonoBehaviour {
             //reverse bool
             isHit = !isHit;
             //Player Health Script to decrease health
-            other.GetComponent<PlayerHealth>().health--;
+            other.GetComponent<PlayerHealth>().HealthDamage();
+            Debug.Log("BulletLaser damage");
         }
     }
 }
