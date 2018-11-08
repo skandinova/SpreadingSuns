@@ -7,6 +7,7 @@ public class Weapon : MonoBehaviour {
     public float fireRate;
     public Transform firePoint;
     public GameObject bulletPrefab;
+    public AudioSource audioShoot;
     private bool isShooting;
 
     private void Start()
@@ -32,6 +33,7 @@ public class Weapon : MonoBehaviour {
     {
         yield return new WaitForSeconds(fireRate);
         Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        audioShoot.Play();
         isShooting = false;
     }
 }
