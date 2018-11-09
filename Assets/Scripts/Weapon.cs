@@ -20,14 +20,8 @@ public class Weapon : MonoBehaviour {
         {
             StartCoroutine(FireRateCoro());
             isShooting = true;
-            //shoot();
         }
 	}
-
-    //void shoot()
-    //{
-    //    Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
-    //}
 
     IEnumerator FireRateCoro()
     {

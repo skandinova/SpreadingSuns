@@ -16,7 +16,7 @@ public class PlayerBullet : MonoBehaviour {
     {
         if (hitInfo.gameObject.CompareTag("Enemy"))
         {
-            hitInfo.gameObject.GetComponent<EnemyHealth>().health--;
+            hitInfo.gameObject.GetComponent<EnemyHealth>().HealthDamage();
         }
     }
 }

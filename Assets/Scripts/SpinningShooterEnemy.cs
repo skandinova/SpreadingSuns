@@ -14,17 +14,14 @@ public class SpinningShooterEnemy : EnemyBase
     public float rotationSave;
     public GameObject projectilePrefab;
     public bool isReversed;
-    //public bool afterBombBool;
 
     [Header("Private Variables")]
     private Vector2 startPoint;
     private bool isShooting;
-    private float afterBombSave;
     private const float radius = 1F;
 
     void Start () {
         isShooting = false;
-        afterBombSave = afterBombTime;
     }
     private void OnEnable()
     {
@@ -90,7 +87,7 @@ public class SpinningShooterEnemy : EnemyBase
             }
             else
             {
-                Debug.Log("Is Stunned...");
+                //Debug.Log("Is Stunned...");
                 yield return null; // Dont do anything if it cant shoot.
             }
 
