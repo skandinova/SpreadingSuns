@@ -17,7 +17,7 @@ public class PlayerHealth : MonoBehaviour {
 		if (health <= 0)
         {
             audioExplode.Play();
-            Destroy(gameObject);
+            Application.LoadLevel(Application.loadedLevel);
         }
 	}
 

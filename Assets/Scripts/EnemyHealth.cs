@@ -18,4 +18,10 @@ public class EnemyHealth : MonoBehaviour {
             Destroy(gameObject);
         }
 	}
+
+    public void HealthDamage()
+    {
+        health -= 1;
+        Debug.Log("Enemy Health: Ah, hurt");
+    }
 }
