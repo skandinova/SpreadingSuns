@@ -5,10 +5,11 @@ using UnityEngine;
 public class PlayerHealth : MonoBehaviour {
 
     public int health;
+    private AudioSource audioSource;
 
 	// Use this for initialization
 	void Start () {
-		
+        audioSource = GetComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame
@@ -18,4 +19,11 @@ public class PlayerHealth : MonoBehaviour {
             Destroy(gameObject);
         }
 	}
+
+    public void HealthDamage()
+    {
+        audioSource.Stop();
+        audioSource.Play();
+        health -= 1;
+    }
 }

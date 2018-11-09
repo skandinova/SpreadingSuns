@@ -18,8 +18,8 @@ public class BulletDamage : MonoBehaviour {
     {
         if (hitInfo.gameObject.CompareTag("Player") && hitInfo.gameObject.GetComponent<PlayerHealth>().health > 0)
         {
-            hitInfo.gameObject.GetComponent<PlayerHealth>().health--;
-            Debug.Log(hitInfo.gameObject.GetComponent<PlayerHealth>().health);
+            hitInfo.gameObject.GetComponent<PlayerHealth>().HealthDamage();
+            //Debug.Log(hitInfo.gameObject.GetComponent<PlayerHealth>().health);
         }
     }
 }
