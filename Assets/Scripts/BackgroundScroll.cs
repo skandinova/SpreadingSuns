@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//YouTube referance https://www.youtube.com/watch?v=IgZQjGyB9zg
 public class BackgroundScroll : MonoBehaviour {
 
     public float SpeedScroll;
