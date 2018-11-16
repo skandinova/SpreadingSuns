@@ -5,6 +5,7 @@ using UnityEngine;
 //Code follow on Youtube tutorial (https://www.youtube.com/watch?v=1aBjTa3xQzE&t=223s)
 public class EnemyPathway : MonoBehaviour {
 
+    public int pathNum;
     public Color rayColor = Color.white;
     public List<PathNode> nodes = new List<PathNode>();
     PathNode[] theArray;

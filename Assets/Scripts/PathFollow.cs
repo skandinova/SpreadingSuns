@@ -5,7 +5,8 @@ using UnityEngine;
 //Code follow on Youtube tutorial (https://www.youtube.com/watch?v=1aBjTa3xQzE&t=223s)
 public class PathFollow : MonoBehaviour {
 
-    public EnemyPathway EnemyPathwayScript;
+    public int goToPath;
+    public EnemyPathway FollowedPathway;
     public float enemySpeed;
     //Use as a trick to make patrol curve to follow in a curve pattern, con/it reduce requirement to reach on point
     public int patrolCycle = -1;
@@ -24,11 +25,24 @@ public class PathFollow : MonoBehaviour {
         forwardPatrolBool = true;
         //To avoid effect when start (Stuck on loop)
         routeZeroBool = false;
+        if (FollowedPathway == null) // Initialize if reference is missing.
+        {
+            GameObject[] pathHolders = GameObject.FindGameObjectsWithTag("PathHolder");
+            foreach (GameObject go in pathHolders)
+            {
+                EnemyPathway path = go.GetComponent<EnemyPathway>();
+                if (path != null && path.pathNum == goToPath)
+                {
+                    FollowedPathway = path;
+                    break;
+                }
+            }
+        }
     }
 	
 	void Update () {
-        float distance = Vector2.Distance(EnemyPathwayScript.nodes[currentPathwayID].transform.position, transform.position);
-        transform.position = Vector2.MoveTowards(transform.position, EnemyPathwayScript.nodes[currentPathwayID].transform.position, Time.deltaTime * enemySpeed);
+        float distance = Vector2.Distance(FollowedPathway.nodes[currentPathwayID].transform.position, transform.position);
+        transform.position = Vector2.MoveTowards(transform.position, FollowedPathway.nodes[currentPathwayID].transform.position, Time.deltaTime * enemySpeed);
 
         if(distance <= reachDistance && forwardPatrolBool)
         {
@@ -38,7 +52,7 @@ public class PathFollow : MonoBehaviour {
         {
             currentPathwayID--;
         }
-        if (currentPathwayID >= EnemyPathwayScript.nodes.Count)
+        if (currentPathwayID >= FollowedPathway.nodes.Count)
         {
             currentPathwayID--;
             forwardPatrolBool = false;
@@ -67,10 +81,13 @@ public class PathFollow : MonoBehaviour {
     //Bad practice of using two detection collide, OnTigger and distance <= reachDistance. Reach distance must be 0f for no possible glitch. Could not find another solution
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.GetComponent<PathNode>().numStops == currentPathwayID && other.gameObject.GetComponent<PathNode>().waitTime > 0)
+        PathNode node = other.gameObject.GetComponent<PathNode>();
+        if (node != null 
+            && node.numStops == currentPathwayID 
+            && node.waitTime > 0)
         {
             //must pass waitSave float to use startCoroutine
-            waitSave = other.gameObject.GetComponent<PathNode>().waitTime;
+            waitSave = node.waitTime;
             StartCoroutine(CoWaitAndDoThing());
         }
     }
