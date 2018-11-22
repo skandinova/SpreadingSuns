@@ -61,6 +61,7 @@ public class EnemySpawnEvent : MonoBehaviour {
         state = SpawnState.COUNTING;
         waveCountdown = timeBetweenWaves;
 
+        //Expected changed. This is when last wave is finish, change this to be a winning transition.
         if(nextWave + 1 > waves.Length - 1)
         {
             nextWave = 0;
