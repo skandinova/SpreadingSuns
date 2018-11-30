@@ -16,15 +16,21 @@ public class PlayerHealth : MonoBehaviour {
 	void Update () {
 		if (health <= 0)
         {
-            audioExplode.Play();
+            if (audioExplode != null)
+            {
+                audioExplode.Play();
+            }
             Application.LoadLevel(Application.loadedLevel);
         }
 	}
 
     public void HealthDamage()
     {
-        audioHit.Stop();
+        if (audioHit != null)
+        {
+            audioHit.Stop();
+            audioHit.Play();
+        }
         health -= 1;
-        audioHit.Play();
     }
 }
