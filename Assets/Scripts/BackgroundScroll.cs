@@ -7,6 +7,7 @@ public class BackgroundScroll : MonoBehaviour {
 
     public float SpeedScroll;
     Vector2 startPos;
+    public float scrollLength = 6.6f;
 
 	// Use this for initialization
 	void Start () {
@@ -15,7 +16,7 @@ public class BackgroundScroll : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        float newPos = Mathf.Repeat(Time.time * SpeedScroll, 20);
+        float newPos = Mathf.Repeat(Time.time * SpeedScroll, scrollLength);
         transform.position = startPos + Vector2.down * newPos;
 	}
 }
