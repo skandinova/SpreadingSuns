@@ -27,7 +27,10 @@ public class Weapon : MonoBehaviour {
     {
         yield return new WaitForSeconds(fireRate);
         Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
-        audioShoot.Play();
+        if (audioShoot != null)
+        {
+            audioShoot.Play();
+        }
         isShooting = false;
     }
 }
