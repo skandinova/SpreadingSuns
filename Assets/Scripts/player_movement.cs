@@ -6,7 +6,7 @@ public class player_movement : MonoBehaviour {
     public float movement;
     public float slow;
     private Rigidbody2D myRigidBody;
-
+    public float speed = 3f;
 	// Use this for initialization
 	void Start () {
         
@@ -15,15 +15,16 @@ public class player_movement : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        float horizontal = Input.GetAxis("Horizontal") * movement;
-        float vertical = Input.GetAxis("Vertical") * movement;
+        float horizontal = Input.GetAxisRaw("Horizontal");
+        float vertical = Input.GetAxisRaw("Vertical");
 
         HandleMovement(horizontal, vertical);
 	}
 
     private void HandleMovement(float horizontal, float vertical)
     {
-        myRigidBody.velocity = new Vector2(myRigidBody.velocity.x, vertical);
-        myRigidBody.velocity = new Vector2(horizontal, myRigidBody.velocity.y);
+        transform.position += new Vector3(horizontal*speed, vertical*speed, transform.position.z);
+      //  myRigidBody.velocity = new Vector2(myRigidBody.velocity.x, vertical);
+        //myRigidBody.velocity = new Vector2(horizontal, myRigidBody.velocity.y);
     }
 }

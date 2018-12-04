@@ -7,9 +7,11 @@ public class PlayerHealth : MonoBehaviour {
     public int health;
     public AudioSource audioHit;
     public AudioSource audioExplode;
-
+    private bool canhit;
+    public MonoBehaviour movmeent;
     // Use this for initialization
     void Start () {
+        canhit = true;
 	}
 	
 	// Update is called once per frame
@@ -20,7 +22,8 @@ public class PlayerHealth : MonoBehaviour {
             {
                 audioExplode.Play();
             }
-            Application.LoadLevel(Application.loadedLevel);
+            Invoke("gameends", 1f);
+            movmeent.enabled = false;
         }
 	}
 
@@ -32,5 +35,24 @@ public class PlayerHealth : MonoBehaviour {
             audioHit.Play();
         }
         health -= 1;
+    }
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.tag == "Enemy" && canhit == true)
+        {
+            canhit = false;
+            health = health - 1;
+            Invoke("goback", 1f);
+        }
+
+    }
+    public void goback()
+    {
+        canhit = true;
+    }
+    public void gameends()
+    {
+        Application.LoadLevel(Application.loadedLevel);
+
     }
 }
