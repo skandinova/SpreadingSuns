@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BackgroundScroll2 : MonoBehaviour {
-
+    //Direct Reffereance: https://drive.google.com/file/d/1fae6lbbXsyRPlBa4iZfcpa_2n41I-t1U/view && https://www.youtube.com/watch?v=FQTuA_0_vhU
     public float Speed = 1;
     public List<SpriteRenderer> sprites = new List<SpriteRenderer>();
     public Direction Dir = Direction.Right;
