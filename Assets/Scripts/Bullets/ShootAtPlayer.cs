@@ -8,6 +8,7 @@ public class ShootAtPlayer : MonoBehaviour {
     public float fireRate;
     public Transform firePoint;
     public GameObject bulletPrefab;
+    public AudioSource audioShoot;
     private bool isShooting;
 
     // Use this for initialization
@@ -27,6 +28,10 @@ public class ShootAtPlayer : MonoBehaviour {
     IEnumerator FireRateCoro()
     {
         yield return new WaitForSeconds(fireRate);
+        if(audioShoot != null)
+        {
+            audioShoot.Play();
+        }
         Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
         isShooting = false;
     }
