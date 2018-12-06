@@ -20,6 +20,7 @@ public class EnemySpawnEvent : MonoBehaviour {
     public Wave[] waves;
     public float timeBetweenWaves = 5f;
 
+    private LoadSceneTrigger loadScene;
     private float waveCountdown;
     private SpawnState state = SpawnState.COUNTING;
     private int nextWave = 0;
@@ -27,6 +28,7 @@ public class EnemySpawnEvent : MonoBehaviour {
 
     void Start () {
         waveCountdown = timeBetweenWaves;
+        loadScene = gameObject.GetComponent<LoadSceneTrigger>();
 	}
 	
 	void Update () {
@@ -64,8 +66,7 @@ public class EnemySpawnEvent : MonoBehaviour {
         //Expected changed. This is when last wave is finish, change this to be a winning transition.
         if(nextWave + 1 > waves.Length - 1)
         {
-            nextWave = 0;
-            Debug.Log("ALL WAVES COMPLETED! Looping...");
+            loadScene.LoadScene();
         }
         else
         {

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class LoadSceneTrigger : MonoBehaviour {
+    public string sceneName;
     private static int lastPlayedScene = 2;
 
     public void LoadByIndex(int sceneIndex) {
@@ -17,5 +18,10 @@ public class LoadSceneTrigger : MonoBehaviour {
 
     public void LoadLastPlayedScene() {
         SceneManager.LoadScene(lastPlayedScene);
+    }
+
+    public void LoadScene()
+    {
+        SceneManager.LoadScene(sceneName);
     }
 }
