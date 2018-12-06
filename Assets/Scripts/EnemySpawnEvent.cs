@@ -74,6 +74,7 @@ public class EnemySpawnEvent : MonoBehaviour {
         }
     }
 
+    //Need to debug
     bool EnemyIsAlive()
     {
         searchCountdown -= Time.deltaTime;
