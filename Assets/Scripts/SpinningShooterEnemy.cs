@@ -14,6 +14,7 @@ public class SpinningShooterEnemy : EnemyBase
     public float rotationSave;
     public GameObject projectilePrefab;
     public bool isReversed;
+    public AudioSource audioShoot;
 
     [Header("Private Variables")]
     private Vector2 startPoint;
@@ -42,6 +43,10 @@ public class SpinningShooterEnemy : EnemyBase
     {
         float angleStep = 360f / _numberOfProjectile;
         float angle = 0f;
+        if (audioShoot != null)
+        {
+            audioShoot.Play();
+        }
         //Used to save rotation location and add into angle for rotation effect
         if (isReversed == false)
         {
