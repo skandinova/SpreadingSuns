@@ -7,7 +7,7 @@ public class PlayerHealth : MonoBehaviour {
 
     public int health;
     public AudioSource audioHit;
-    public AudioSource audioExplode;
+    public AudioSource audioDeath;
     private bool canhit;
     public MonoBehaviour movmeent;
     // Use this for initialization
@@ -19,9 +19,9 @@ public class PlayerHealth : MonoBehaviour {
 	void Update () {
 		if (health <= 0)
         {
-            if (audioExplode != null)
+            if (audioDeath != null)
             {
-                audioExplode.Play();
+                audioDeath.Play();
             }
             Invoke("gameends", 1f);
             movmeent.enabled = false;

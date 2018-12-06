@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class player_movement : MonoBehaviour {
-    public float movement;
+    //public float movement;
     public float slow;
     private Rigidbody2D myRigidBody;
     public float speed = 3f;
@@ -23,8 +23,15 @@ public class player_movement : MonoBehaviour {
 
     private void HandleMovement(float horizontal, float vertical)
     {
-        transform.position += new Vector3(horizontal*speed, vertical*speed, transform.position.z);
-      //  myRigidBody.velocity = new Vector2(myRigidBody.velocity.x, vertical);
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            transform.position += new Vector3(horizontal * slow, vertical * slow, transform.position.z);
+        }
+        else
+        {
+            transform.position += new Vector3(horizontal * speed, vertical * speed, transform.position.z);
+        }
+        //myRigidBody.velocity = new Vector2(myRigidBody.velocity.x, vertical);
         //myRigidBody.velocity = new Vector2(horizontal, myRigidBody.velocity.y);
     }
 }

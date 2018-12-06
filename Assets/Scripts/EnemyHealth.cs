@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyHealth : MonoBehaviour {
 
     public int health;
+    public AudioSource audioDeath;
 
 	// Use this for initialization
 	void Start () {
@@ -15,6 +16,10 @@ public class EnemyHealth : MonoBehaviour {
 	void Update () {
 		if (health <= 0)
         {
+            if (audioDeath != null)
+            {
+                audioDeath.Play();
+            }
             Destroy(gameObject);
         }
 	}
